@@ -1,0 +1,699 @@
+openapi: 3.0.3
+
+info:
+  title: GoosyMock
+  description: Admin API specification
+  version: 0.1.x
+
+components:
+  schemas:
+    Response:
+      description: Specification of response contents
+      type: object
+      properties:
+        statusCode:
+          description: HTTP response status code
+          type: integer
+          default: 200
+        headers:
+          description: HTTP response headers
+          type: object
+          additionalProperties:
+            type: string
+          default: {}
+        contentType:
+          description: HTTP content type (value of Content-Type header)
+          type: string
+          default: text/plain
+        content:
+          description: HTTP response body content
+          type: string
+        payloadId:
+          description: Identifier of payload used as response body
+          type: string
+    Route:
+      description: Specification of route's responses; inline specification is used as default response if method-specific response was not set
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            get:
+              description: Response for GET requests
+              allOf:
+                - $ref: '#/components/schemas/Response'
+            post:
+              description: Response for POST requests
+              allOf:
+                - $ref: '#/components/schemas/Response'
+            put:
+              description: Response for PUT requests
+              allOf:
+                - $ref: '#/components/schemas/Response'
+            patch:
+              description: Response for PATCH requests
+              allOf:
+                - $ref: '#/components/schemas/Response'
+            delete:
+              description: Response for DELETE requests
+              allOf:
+                - $ref: '#/components/schemas/Response'
+    Payload:
+      description: Specification of payload's responses
+      type: object
+      properties:
+        filename:
+          description: Original filename of payload
+          type: string
+        size:
+          description: Size of payload (in bytes)
+          type: integer
+          format: int64
+        timestamp:
+          description: Date of last update of payload's contents
+          type: string
+          format: date-time
+      required:
+        - filename
+        - size
+        - timestamp
+    StatusResponse:
+      description: Specification of status response
+      type: object
+      properties:
+        system:
+          description: Operating system details
+          type: object
+          properties:
+            os:
+              description: Operating system family's name
+              type: string
+            arch:
+              description: Operating system architecture
+              type: string
+          required:
+            - os
+            - arch
+        runtime:
+          description: Runtime details
+          type: object
+          properties:
+            goVersion:
+              description: Go language version
+              type: string
+            cpus:
+              description: Number of available CPU cores
+              type: integer
+            goroutines:
+              description: Number of currently running Goroutines
+              type: integer
+          required:
+            - goVersion
+            - cpus
+            - goroutines
+        network:
+          description: Network details
+          type: object
+          properties:
+            hostname:
+              description: Hostname of the machine
+              type: string
+            interfaces:
+              description: Names of network interfaces and their IP addresses
+              type: object
+              additionalProperties:
+                description: IP addresses
+                type: array
+                items:
+                  type: string
+          required:
+            - hostname
+            - interfaces
+        stats:
+          description: Statistics of current application state
+          type: object
+          properties:
+            routes:
+              description: Number of defined routes
+              type: integer
+            payloads:
+              description: Number of defined payloads
+              type: integer
+          required:
+            - routes
+            - payloads
+      required:
+        - system
+        - runtime
+        - network
+        - stats
+    ErrorResponse:
+      description: Specification of error response
+      type: object
+      properties:
+        status:
+          description: HTTP response status code for error
+          type: integer
+        message:
+          description: Short summary of error
+          type: string
+        details:
+          description: Exact error message that occurred in runtime
+          type: string
+      required:
+        - status
+        - message
+        - details
+    BatchUploadResponse:
+      description: Specification of summary sent after uploading payloads
+      type: object
+      properties:
+        ids:
+          description: Map of filenames and generated IDs for successfully uploaded payloads
+          type: object
+          additionalProperties:
+            description: Payload ID
+            type: string
+        errors:
+          description: Map of filenames and error messages for upload failures
+          type: object
+          additionalProperties:
+            description: Error message
+            type: string
+      required:
+        - ids
+        - errors
+    BatchDeleteResponse:
+      description: Specification of summary sent after deleting all payloads
+      type: object
+      properties:
+        ok:
+          description: Indicator of fully successful deletion of payloads
+          type: boolean
+        details:
+          description: Error messages related to payloads deletion
+          type: string
+      required:
+        - ok
+  parameters:
+    payloadId:
+      in: path
+      name: payloadId
+      schema:
+        type: string
+        example: 17af9631-acc8-4867-b07e-02c97d14ae82
+      required: true
+      description: Single payload ID (version 4 UUID string)
+
+tags:
+  - name: Status
+    description: Fetching current state of application
+  - name: Routes
+    description: Managing routes and responses
+  - name: Payloads
+    description: Managing payloads for routes
+
+paths:
+  /:
+    get:
+      operationId: getStatus
+      summary: Fetch status of GoosyMock application and environment
+      tags: ["Status"]
+      responses:
+        '200':
+          description: GoosyMock application and environment status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+              example:
+                system:
+                  os: linux
+                  arch: amd64
+                runtime:
+                  goVersion: go1.19.2
+                  cpus: 12
+                  goroutines: 11
+                network:
+                  hostname: test-server
+                  interfaces:
+                    lo:
+                      - "172.0.0.1/8"
+                      - "::1/128"
+                    eth0:
+                      - "192.168.0.10/24"
+                stats:
+                  routes: 0
+                  payloads: 0
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+              example:
+                system:
+                  os: linux
+                  arch: amd64
+                runtime:
+                  goVersion: go1.19.2
+                  cpus: 12
+                  goroutines: 11
+                network:
+                  hostname: test-server
+                  interfaces:
+                    lo:
+                      - "172.0.0.1/8"
+                      - "::1/128"
+                    eth0:
+                      - "192.168.0.10/24"
+                stats:
+                  routes: 0
+                  payloads: 0
+  /routes:
+    get:
+      operationId: listRoutes
+      summary: Fetch configured routes
+      tags: ["Routes"]
+      responses:
+        '200':
+          description: Routes configuration returned
+          content:
+            application/json:
+              schema:
+                description: Map of paths and route specifications
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/Route"
+              example:
+                /hello:
+                  contentType: application/json
+                  content: |
+                    {
+                      "message": "Hello World!"
+                    }
+                /createSomething:
+                  statusCode: 201
+                  contentType: text/yaml
+                  content: |
+                    ok: true
+                    items: 1
+            text/yaml:
+              schema:
+                description: Map of paths and route specifications
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/Route"
+              example:
+                /hello:
+                  contentType: application/json
+                  content: |
+                    {
+                      "message": "Hello World!"
+                    }
+                /createSomething:
+                  statusCode: 201
+                  contentType: text/yaml
+                  content: |
+                    ok: true
+                    items: 1
+    post:
+      operationId: replaceRoutes
+      summary: Set configured routes
+      tags: ["Routes"]
+      requestBody:
+        description: Routes configuration
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Map of paths and route specifications
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/Route"
+            example:
+              /hello:
+                contentType: application/json
+                content: |
+                  {
+                    "message": "Hello World!"
+                  }
+              /createSomething:
+                statusCode: 201
+                contentType: text/yaml
+                content: |
+                  ok: true
+                  items: 1
+          text/yaml:
+            schema:
+              description: Map of paths and route specifications
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/Route"
+            example:
+              /hello:
+                contentType: application/json
+                content: |
+                  {
+                    "message": "Hello World!"
+                  }
+              /createSomething:
+                statusCode: 201
+                contentType: text/yaml
+                content: |
+                  ok: true
+                  items: 1
+      responses:
+        '202':
+          description: Routes configuration accepted
+        '422':
+          description: Unable to parse request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 422
+                message: no content passed
+                details: EOF
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 422
+                message: no content passed
+                details: EOF
+        '415':
+          description: Unsupported media type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 415
+                message: unsupported media type
+                details: "unsupported media type: text/plain"
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 415
+                message: unsupported media type
+                details: "unsupported media type: text/plain"
+  /payloads:
+    get:
+      operationId: listPayloads
+      summary: Fetch stored payloads
+      tags: ["Payloads"]
+      responses:
+        '200':
+          description: Payloads list returned
+          content:
+            application/json:
+              schema:
+                description: Map of IDs and payload details
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/Payload"
+              example:
+                17af9631-acc8-4867-b07e-02c97d14ae82:
+                  filename: document.pdf
+                  size: 121457
+                  timestamp: 2022-11-02T21:24:59.104242267Z
+                faddedaa-2a6b-4930-93da-760874cc1666:
+                  filename: image.jpg
+                  size: 1964529
+                  timestamp: 2022-11-02T21:24:59.103929567Z
+            text/yaml:
+              schema:
+                description: Map of IDs and payload details
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/Payload"
+              example:
+                17af9631-acc8-4867-b07e-02c97d14ae82:
+                  filename: document.pdf
+                  size: 121457
+                  timestamp: 2022-11-02T21:24:59.104242267Z
+                faddedaa-2a6b-4930-93da-760874cc1666:
+                  filename: image.jpg
+                  size: 1964529
+                  timestamp: 2022-11-02T21:24:59.103929567Z
+    post:
+      operationId: uploadPayloads
+      summary: Upload new payloads
+      tags: ["Payloads"]
+      requestBody:
+        description: Request with payloads set as "payloads" fields
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payloads:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+                - payloads
+      responses:
+        '200':
+          description: Payloads upload summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchUploadResponse"
+              example:
+                ids:
+                  document.pdf: 17af9631-acc8-4867-b07e-02c97d14ae82
+                  image.jpg: faddedaa-2a6b-4930-93da-760874cc1666
+                errors: {}
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/BatchUploadResponse"
+              example:
+                ids:
+                  document.pdf: 17af9631-acc8-4867-b07e-02c97d14ae82
+                  image.jpg: faddedaa-2a6b-4930-93da-760874cc1666
+                errors: {}
+        '400':
+          description: No files attached
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: request does not contain any file in payloads field as expected
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: request does not contain any file in payloads field as expected
+    delete:
+      operationId: deletePayloads
+      summary: Delete all stored payloads
+      tags: ["Payloads"]
+      responses:
+        '200':
+          description: Payloads deletion summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchDeleteResponse"
+              example:
+                ok: true
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/BatchDeleteResponse"
+              example:
+                ok: true
+  /payloads/{payloadId}:
+    get:
+      operationId: fetchSinglePayload
+      summary: Fetch single stored payload
+      tags: ["Payloads"]
+      parameters:
+        - $ref: '#/components/parameters/payloadId'
+      responses:
+        '200':
+          description: Single stored payload fetched
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Payload"
+              example:
+                filename: document.pdf
+                size: 121457
+                timestamp: 2022-11-02T21:24:59.104242267Z
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/Payload"
+              example:
+                filename: document.pdf
+                size: 121457
+                timestamp: 2022-11-02T21:24:59.104242267Z
+        '404':
+          description: Stored payload not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+    post:
+      operationId: updateSinglePayload
+      summary: Update single stored payload
+      tags: ["Payloads"]
+      parameters:
+        - $ref: '#/components/parameters/payloadId'
+      requestBody:
+        description: Request with new payload set as "payload" fields
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: string
+                  format: binary
+              required:
+                - payload
+      responses:
+        '202':
+          description: Payload update accepted
+        '404':
+          description: Stored payload not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+        '400':
+          description: Unable to update payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: request does not contain any file in payload field as expected
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: request does not contain any file in payload field as expected
+    delete:
+      operationId: deleteSinglePayload
+      summary: Delete single stored payload
+      tags: ["Payloads"]
+      parameters:
+        - $ref: '#/components/parameters/payloadId'
+      responses:
+        '204':
+          description: Payload deleted
+        '404':
+          description: Stored payload not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+        '400':
+          description: Unable to delete payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: "error while deleting payload: os.Remove: remove /tmp/goosymock-payloads-1560545925/3149522559.payload: no such file or directory"
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: "error while deleting payload: os.Remove: remove /tmp/goosymock-payloads-1560545925/3149522559.payload: no such file or directory"
+  /payloads/{payloadId}/download:
+    get:
+      operationId: downloadSinglePayload
+      summary: Download single stored payload
+      tags: ["Payloads"]
+      parameters:
+        - $ref: '#/components/parameters/payloadId'
+      responses:
+        '200':
+          description: Single stored payload contents returned
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Stored payload not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 404
+                message: resource does not exist
+                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+        '400':
+          description: Unable to download payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: "unable to resolve payload contents: open /tmp/goosymock-payloads-1560545925/3149522559.payload: no such file or directory"
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: unable to alternate resource
+                details: "unable to resolve payload contents: open /tmp/goosymock-payloads-1560545925/3149522559.payload: no such file or directory"
