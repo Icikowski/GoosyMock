@@ -1,0 +1,26 @@
+FROM golang:latest AS builder
+ARG version
+ARG gitCommit
+ARG buildTime
+ENV BUILD_VERSION=${version:-unknown}
+ENV BUILD_GIT_COMMIT=${gitCommit:-unknown}
+ENV BUILD_TIME=${buildTime:-unknown}
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download -x
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o goosymock -ldflags "-X 'github.com/Icikowski/GoosyMock/meta.Version=${BUILD_VERSION}' -X 'github.com/Icikowski/GoosyMock/meta.GitCommit=${BUILD_GIT_COMMIT}' -X 'github.com/Icikowski/GoosyMock/meta.BuildTime=${BUILD_TIME}' -X 'github.com/Icikowski/GoosyMock/meta.BinaryType=static' -w -extldflags '-static'" .
+
+FROM gcr.io/distroless/static:nonroot
+LABEL maintainer "Piotr Icikowski <piotrekicikowski@gmail.com>"
+LABEL org.opencontainers.image.title "GoosyMock - "
+LABEL org.opencontainers.image.description "Simple & easy to configure test service for serving content through HTTP"
+LABEL org.opencontainers.image.authors "Piotr Icikowski"
+LABEL org.opencontainers.image.vendor "Piotr Icikowski"
+LABEL org.opencontainers.image.url "https://github.com/Icikowski/GoosyMock"
+LABEL org.opencontainers.image.source "https://github.com/Icikowski/GoosyMock"
+LABEL org.opencontainers.image.licenses "GPL-3.0-or-later"
+WORKDIR /
+COPY --from=builder /app/goosymock .
+USER 65532:65532
+ENTRYPOINT ["/goosymock"]
