@@ -1,0 +1,101 @@
+version: '3'
+
+vars:
+  flag_buildTime: -X 'github.com/Icikowski/GoosyMock/meta.BuildTime={{ .BUILD_TIME }}'
+  flag_version: -X 'github.com/Icikowski/GoosyMock/meta.Version={{ .GIT_TAG }}'
+  flag_commit: -X 'github.com/Icikowski/GoosyMock/meta.GitCommit={{ .GIT_COMMIT }}'
+  flag_buildType_dynamic: -X 'github.com/Icikowski/GoosyMock/meta.BinaryType=dynamic'
+  flag_buildType_static: -X 'github.com/Icikowski/GoosyMock/meta.BinaryType=static' -w -extldflags '-static'
+  flags_base: "{{ .flag_version }} {{ .flag_commit }} {{ .flag_buildTime }}"
+
+tasks:
+  _parametrized_build:
+    label: "{{ .goos | default OS }}_{{ .goarch | default ARCH }}"
+    internal: true
+    env:
+      CGO_ENABLED: '{{ .cgo_enabled | default "1" }}'
+      GOOS: "{{ .goos | default OS }}"
+      GOARCH: "{{ .goarch | default ARCH }}"
+    cmds:
+      - go build -ldflags "{{ .flags_base }} {{ .flags_extra }}" -o ../target/goosymock_${GOOS}_${GOARCH}{{ .extension }} .
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+    generates:
+      - ../target/goosymock_{{ .goos | default OS }}_{{ .goarch | default ARCH }}{{ .extension }}
+  dynamic:
+    desc: Build a dynamic binary
+    cmds:
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_dynamic }}"
+  static:
+    desc: Build a static binary
+    cmds:
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+  crossplatform:
+    desc: Build multiple binaries for different platforms
+    cmds:
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: linux
+          goarch: amd64
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: linux
+          goarch: "386"
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: linux
+          goarch: arm
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: linux
+          goarch: arm64
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: linux
+          goarch: ppc64le
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: darwin
+          goarch: amd64
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: darwin
+          goarch: arm64
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: windows
+          goarch: amd64
+          extension: .exe
+      - task: _parametrized_build
+        vars:
+          flags_extra: "{{ .flag_buildType_static }}"
+          cgo_enabled: "0"
+          goos: windows
+          goarch: "386"
+          extension: .exe
+          
+
+

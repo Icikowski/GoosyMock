@@ -1,0 +1,35 @@
+version: '3'
+
+tasks:
+  standard:
+    desc: Run tests with standard output verbosity
+    aliases:
+      - "std"
+    cmds:
+      - go test ./... -race -p 1
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+  full:
+    desc: Run tests with increased output verbosity
+    cmds:
+      - go test ./... -race -p 1 -v
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+  cover:
+    desc: Run tests and build coverage report
+    cmds:
+      - mkdir -p ../target
+      - go test ./... -race -p 1 -v -covermode atomic -coverprofile ../target/cover.out
+      - go tool cover -html ../target/cover.out -o ../target/cover.html
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+    generates:
+      - ../target/cover.out
+      - ../target/cover.html
+    

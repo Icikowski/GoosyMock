@@ -1,0 +1,20 @@
+version: '3'
+
+vars:
+  BUILD_TIME:
+    sh: date -u +"%Y-%m-%dT%H:%M:%SZ"
+  GIT_COMMIT:
+    sh: git rev-parse --short HEAD || echo "unknown"
+  GIT_TAG:
+    sh: (git describe --abbrev=0 || echo "unknown") | sed "s/v//"
+
+includes:
+  build:
+    taskfile: ./tasks/build.yaml
+    dir: ./src
+  test:
+    taskfile: ./tasks/test.yaml
+    dir: ./src
+  dist:
+    taskfile: ./tasks/dist.yaml
+    dir: ./dist

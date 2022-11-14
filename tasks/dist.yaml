@@ -1,0 +1,11 @@
+version: '3'
+
+vars:
+  image_tag: ghcr.io/icikowski/goosymock:{{ .GIT_TAG }} 
+
+tasks:
+  image:
+    desc: Build a Docker image
+    dir: container
+    cmds:
+      - docker build ../../src --file Containerfile --tag {{ .image_tag }} --build-arg version={{ .GIT_TAG }} --build-arg gitCommit={{ .GIT_COMMIT }} --build-arg buildTime={{ .BUILD_TIME }} --label org.opencontainers.image.version={{ .GIT_TAG }} --label org.opencontainers.image.created={{ .BUILD_TIME }}
