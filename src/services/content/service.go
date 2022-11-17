@@ -51,6 +51,7 @@ func (s *ContentService) buildHandler(routes model.Routes) {
 	s.log.Debug().Msg("building handler")
 
 	handler := chi.NewRouter()
+	handler.Use(middleware.RealIP)
 	handler.Use(middleware.CleanPath)
 	handler.Use(s.contentLogger)
 	handler.Use(middleware.Recoverer)

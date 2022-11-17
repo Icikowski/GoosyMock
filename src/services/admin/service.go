@@ -58,6 +58,7 @@ const (
 
 func (s *AdminAPIService) buildHandler() {
 	handler := chi.NewRouter()
+	handler.Use(middleware.RealIP)
 	handler.Use(middleware.CleanPath)
 	handler.Use(s.contentLogger)
 	handler.Use(s.adminApiHeader)
