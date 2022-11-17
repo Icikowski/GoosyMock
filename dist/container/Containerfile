@@ -13,8 +13,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o goosymock -ldflag
 
 FROM gcr.io/distroless/static:nonroot
 LABEL maintainer "Piotr Icikowski <piotrekicikowski@gmail.com>"
-LABEL org.opencontainers.image.title "GoosyMock - "
-LABEL org.opencontainers.image.description "Simple & easy to configure test service for serving content through HTTP"
+LABEL org.opencontainers.image.title "GoosyMock"
+LABEL org.opencontainers.image.description "Fully functional API was never an option"
 LABEL org.opencontainers.image.authors "Piotr Icikowski"
 LABEL org.opencontainers.image.vendor "Piotr Icikowski"
 LABEL org.opencontainers.image.url "https://github.com/Icikowski/GoosyMock"
