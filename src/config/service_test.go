@@ -17,39 +17,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func noopCertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
+func noopCertGen(t *testing.T) (tlsCert string, tlsKey string) {
 	t.Helper()
 	return
 }
 
-func missingCACertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
-	t.Helper()
-	caCert = "/tmp/thereIsNoSpoon"
-	return
-}
-
-func malformedCaCertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
-	t.Helper()
-
-	caCertFile, err := os.CreateTemp(os.TempDir(), "ca-*.crt")
-	if err != nil {
-		t.Fatal(err.Error())
-		return
-	}
-	t.Cleanup(func() {
-		os.Remove(caCertFile.Name())
-	})
-
-	if _, err := caCertFile.WriteString("malformed"); err != nil {
-		t.Fatal(err.Error())
-		return
-	}
-	caCert = caCertFile.Name()
-
-	return
-}
-
-func allOkCertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
+func allOkCertGen(t *testing.T) (tlsCert string, tlsKey string) {
 	t.Helper()
 
 	ca := &x509.Certificate{
@@ -76,30 +49,6 @@ func allOkCertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
 		t.Fatal(err.Error())
 		return
 	}
-
-	caBytes, err := x509.CreateCertificate(rand.Reader, ca, ca, &caPrivKey.PublicKey, caPrivKey)
-	if err != nil {
-		t.Fatal(err.Error())
-		return
-	}
-
-	caCertFile, err := os.CreateTemp(os.TempDir(), "ca-*.crt")
-	if err != nil {
-		t.Fatal(err.Error())
-		return
-	}
-	t.Cleanup(func() {
-		os.Remove(caCertFile.Name())
-	})
-
-	if err := pem.Encode(caCertFile, &pem.Block{
-		Type:  "CERTIFICATE",
-		Bytes: caBytes,
-	}); err != nil {
-		t.Fatal(err.Error())
-		return
-	}
-	caCert = caCertFile.Name()
 
 	cert := &x509.Certificate{
 		SerialNumber: big.NewInt(1658),
@@ -171,17 +120,10 @@ func allOkCertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
 	return
 }
 
-func missingTLSCertGen(t *testing.T) (caCert string, tlsCert string, tlsKey string) {
-	t.Helper()
-	caCert, _, _ = allOkCertGen(t)
-	tlsCert, tlsKey = "", ""
-	return
-}
-
 func TestLoadCerts(t *testing.T) {
 	tests := map[string]struct {
 		sslEnabled    bool
-		genFunc       func(*testing.T) (string, string, string)
+		genFunc       func(*testing.T) (string, string)
 		errorExpected bool
 	}{
 		"SSL disabled": {
@@ -189,22 +131,12 @@ func TestLoadCerts(t *testing.T) {
 			genFunc:       noopCertGen,
 			errorExpected: false,
 		},
-		"missing CA certificate": {
+		"TLS missing": {
 			sslEnabled:    true,
-			genFunc:       missingCACertGen,
+			genFunc:       noopCertGen,
 			errorExpected: true,
 		},
-		"malformed CA certificate": {
-			sslEnabled:    true,
-			genFunc:       malformedCaCertGen,
-			errorExpected: true,
-		},
-		"missing TLS certificate": {
-			sslEnabled:    true,
-			genFunc:       missingTLSCertGen,
-			errorExpected: true,
-		},
-		"all OK": {
+		"TLS valid": {
 			sslEnabled:    true,
 			genFunc:       allOkCertGen,
 			errorExpected: false,
@@ -217,7 +149,7 @@ func TestLoadCerts(t *testing.T) {
 			conf := &config.ServiceConfig{
 				SSLEnabled: tc.sslEnabled,
 			}
-			conf.CACertPath, conf.TLSCertPath, conf.TLSKeyPath = tc.genFunc(t)
+			conf.TLSCertPath, conf.TLSKeyPath = tc.genFunc(t)
 
 			err := conf.LoadCerts()
 			if tc.errorExpected {
