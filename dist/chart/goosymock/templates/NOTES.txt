@@ -1,0 +1,33 @@
+GoosyMock - Fully functional API was never an option
+
+Service installed successfully! Check out the documentation (https://icikowski.github.io/GoosyMock) and start using the app.
+
+Ways to access the application:
+  1. Admin API:
+     - via {{ .Values.goosyMock.adminApi.service.type }} service:
+       HTTP on port {{ .Values.goosyMock.adminApi.service.port }}
+       {{- if .Values.goosyMock.adminApi.ssl.enabled }}
+       HTTPS on port {{ .Values.goosyMock.adminApi.service.securedPort }}
+       {{- end }}
+     {{- if .Values.ingress.adminApi.enabled }}
+     - via Ingress:
+     {{- range $host := .Values.ingress.adminApi.hosts }}
+       {{- range .paths }}
+       http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+       {{- end }}
+     {{- end }}
+     {{- end }}
+  2. Content Service:
+     - via {{ .Values.goosyMock.contentService.service.type }} service:
+       HTTP on port {{ .Values.goosyMock.contentService.service.port }}
+       {{- if .Values.goosyMock.contentService.ssl.enabled }}
+       HTTPS on port {{ .Values.goosyMock.contentService.service.securedPort }}
+       {{- end }}
+     {{- if .Values.ingress.contentService.enabled }}
+     - via Ingress:
+     {{- range $host := .Values.ingress.contentService.hosts }}
+       {{- range .paths }}
+       http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+       {{- end }}
+     {{- end }}
+     {{- end }}

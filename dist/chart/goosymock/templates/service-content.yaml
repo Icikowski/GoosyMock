@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "goosymock.fullname" . }}
+  labels:
+    {{- include "goosymock.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.goosyMock.contentService.service.type }}
+  ports:
+    - port: {{ .Values.goosyMock.contentService.service.port }}
+      targetPort: content-http
+      protocol: TCP
+      name: http
+    {{- if .Values.goosyMock.contentService.ssl.enabled }}
+    - port: {{ .Values.goosyMock.contentService.service.securedPort }}
+      targetPort: content-https
+      protocol: TCP
+      name: https
+    {{- end }}
+  selector:
+    {{- include "goosymock.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,128 @@
+overrides:
+  name: ""
+  fullName: ""
+
+  # Overrides the image repository whose default is "ghcr.io"
+  repository: ""
+  # Overrides the image name whose default is "icikowski/goosymock"
+  image: ""
+  # Overrides the image tag whose default is the chart appVersion
+  tag: ""
+
+image:
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+goosyMock:
+  # Logging configuration
+  logLevel: info
+  prettyLog: false
+
+  # Maximum payload size (in megabytes)
+  maxPayloadSize: 64
+
+  # Admin API Service configuration
+  adminApi:
+    port: 8081
+
+    # Secured connection configuration
+    # If enabled, the Kubernetes Secret with TLS certificate and
+    # secret key for Kubernetes service name must be present in 
+    # deployment namespace and it's name must be provided below
+    ssl:
+      enabled: false
+      port: 8444
+      secretName: ""
+    
+    # Kubernetes Service configuration
+    service:
+      type: ClusterIP
+      port: 80
+      securedPort: 443
+  
+  # Content Service configuration
+  contentService:
+    port: 8080
+
+    # Secured connection configuration
+    # If enabled, the Kubernetes Secret with TLS certificate and
+    # secret key for Kubernetes service name must be present in 
+    # deployment namespace and it's name must be provided below
+    ssl:
+      enabled: false
+      port: 8443
+      secretName: ""
+    
+    # Kubernetes Service configuration
+    service:
+      type: ClusterIP
+      port: 80
+      securedPort: 443
+  
+  # Health probes configuration
+  health:
+    port: 8888
+
+# Ingress configuration for Admin API Service and Content Service
+ingress:
+  adminApi:
+    enabled: false
+    className: ""
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: admin.example.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - admin.example.com
+  contentService:
+    enabled: false
+    className: ""
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: content.example.com
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - content.example.com
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

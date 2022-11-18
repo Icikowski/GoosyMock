@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "goosymock.fullname" . }}
+  labels:
+    {{- include "goosymock.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "goosymock.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "goosymock.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.overrides.repository | default "ghcr.io" }}/{{ .Values.overrides.image | default "icikowski/goosymock" }}:{{ .Values.overrides.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if or .Values.goosyMock.adminApi.ssl.enabled .Values.goosyMock.contentService.ssl.enabled }}
+          volumeMounts:
+            {{- if .Values.goosyMock.adminApi.ssl.enabled }}
+            - name: admin-ssl
+              mountPath: /var/ssl/admin
+              readOnly: true
+            {{- end }}
+            {{- if .Values.goosyMock.contentService.ssl.enabled }}
+            - name: content-ssl
+              mountPath: /var/ssl/content
+              readOnly: true
+            {{- end }}
+          {{- end }}
+          env:
+            - name: GM_LOG_LEVEL
+              value: {{ .Values.goosyMock.logLevel | default "info" | quote }}
+            - name: GM_PRETTY_LOG
+              value: {{ .Values.goosyMock.prettyLog | default "false" | quote }}
+            - name: GM_ADMIN_API_PORT
+              value: {{ .Values.goosyMock.adminApi.port | default "8081" | quote }}
+            - name: GM_ADMIN_API_SECURED_PORT
+              value: {{ .Values.goosyMock.adminApi.ssl.port | default "8444" | quote }}
+            - name: GM_ADMIN_API_SSL_ENABLED
+              value: {{ .Values.goosyMock.adminApi.ssl.enabled | default "false" | quote }}
+            - name: GM_ADMIN_API_TLS_CERT_PATH
+              value: /var/ssl/admin/tls.crt
+            - name: GM_ADMIN_API_TLS_KEY_PATH
+              value: /var/ssl/admin/tls.key
+            - name: GM_CONTENT_PORT
+              value: {{ .Values.goosyMock.contentService.port | default "8080" | quote }}
+            - name: GM_CONTENT_SECURED_PORT
+              value: {{ .Values.goosyMock.contentService.ssl.port | default "8443" | quote }}
+            - name: GM_CONTENT_SSL_ENABLED
+              value: {{ .Values.goosyMock.contentService.ssl.enabled | default "false" | quote }}
+            - name: GM_CONTENT_TLS_CERT_PATH
+              value: /var/ssl/content/tls.crt
+            - name: GM_CONTENT_TLS_KEY_PATH
+              value: /var/ssl/content/tls.key
+            - name: GM_HEALTH_PROBES_PORT
+              value: {{ .Values.goosyMock.health.port | default "8888" | quote }}
+            - name: GM_MAX_PAYLOAD_SIZE
+              value: {{ .Values.goosyMock.maxPayloadSize | default "64" | quote }}
+          ports:
+            - name: content-http
+              containerPort: {{ .Values.goosyMock.contentService.port }}
+              protocol: TCP
+            {{- if .Values.goosyMock.contentService.ssl.enabled }}
+            - name: content-https
+              containerPort: {{ .Values.goosyMock.contentService.ssl.port }}
+              protocol: TCP
+            {{- end }}
+            - name: admin-http
+              containerPort: {{ .Values.goosyMock.adminApi.port }}
+              protocol: TCP
+            {{- if .Values.goosyMock.adminApi.ssl.enabled }}
+            - name: admin-https
+              containerPort: {{ .Values.goosyMock.adminApi.ssl.port }}
+              protocol: TCP
+            {{- end }}
+            - name: health
+              containerPort: {{ .Values.goosyMock.health.port }}
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /live
+              port: health
+            failureThreshold: 6
+            periodSeconds: 5
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: health
+            failureThreshold: 3
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: health
+            failureThreshold: 3
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if or .Values.goosyMock.adminApi.ssl.enabled .Values.goosyMock.contentService.ssl.enabled }}
+      volumes:
+        {{- if .Values.goosyMock.adminApi.ssl.enabled }}
+        - name: admin-ssl
+          secret:
+            secretName: {{ .Values.goosyMock.adminApi.ssl.secretName | required "Kubernetes TLS Secret name with Admin API certificate must be provided!" }}
+        {{- end }}
+        {{- if .Values.goosyMock.contentService.ssl.enabled }}
+        - name: content-ssl
+          secret:
+            secretName: {{ .Values.goosyMock.contentService.ssl.secretName | required "Kubernetes TLS Secret name with Content Service certificate must be provided!" }}
+        {{- end }}
+      {{- end }}

@@ -1,0 +1,19 @@
+apiVersion: v2
+name: goosymock
+description: GPTS - Fully functional API was never an option
+keywords:
+  - testing
+  - mocking
+  - test service
+  - test tools
+  - api mocking
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+home: https://icikowski.github.io/GoosyMock
+icon: https://github.com/Icikowski/GoosyMock/raw/master/images/icon-dark.png
+sources:
+  - http://github.com/Icikowski/GoosyMock
+maintainers:
+  - name: Piotr Icikowski
+    url: https://icikowski.pl
