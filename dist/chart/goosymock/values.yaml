@@ -33,12 +33,6 @@ goosyMock:
       enabled: false
       port: 8444
       secretName: ""
-    
-    # Kubernetes Service configuration
-    service:
-      type: ClusterIP
-      port: 80
-      securedPort: 443
   
   # Content Service configuration
   contentService:
@@ -52,18 +46,23 @@ goosyMock:
       enabled: false
       port: 8443
       secretName: ""
-    
-    # Kubernetes Service configuration
-    service:
-      type: ClusterIP
-      port: 80
-      securedPort: 443
   
   # Health probes configuration
   health:
     port: 8888
 
-# Ingress configuration for Admin API Service and Content Service
+# Kubernetes Service configuration for Admin API Service and Content Service
+service:
+  adminApi:
+    type: ClusterIP
+    port: 80
+    securedPort: 443
+  contentService:
+    type: ClusterIP
+    port: 80
+    securedPort: 443
+
+# Kubernetes Ingress configuration for Admin API Service and Content Service
 ingress:
   adminApi:
     enabled: false

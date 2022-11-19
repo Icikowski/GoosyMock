@@ -4,10 +4,10 @@ Service installed successfully! Check out the documentation (https://icikowski.g
 
 Ways to access the application:
   1. Admin API:
-     - via {{ .Values.goosyMock.adminApi.service.type }} service:
-       HTTP on port {{ .Values.goosyMock.adminApi.service.port }}
+     - via {{ .Values.service.adminApi.type }} service:
+       HTTP on port {{ .Values.service.adminApi.port }}
        {{- if .Values.goosyMock.adminApi.ssl.enabled }}
-       HTTPS on port {{ .Values.goosyMock.adminApi.service.securedPort }}
+       HTTPS on port {{ .Values.service.adminApi.securedPort }}
        {{- end }}
      {{- if .Values.ingress.adminApi.enabled }}
      - via Ingress:
@@ -18,10 +18,10 @@ Ways to access the application:
      {{- end }}
      {{- end }}
   2. Content Service:
-     - via {{ .Values.goosyMock.contentService.service.type }} service:
-       HTTP on port {{ .Values.goosyMock.contentService.service.port }}
+     - via {{ .Values.service.contentService.type }} service:
+       HTTP on port {{ .Values.service.contentService.port }}
        {{- if .Values.goosyMock.contentService.ssl.enabled }}
-       HTTPS on port {{ .Values.goosyMock.contentService.service.securedPort }}
+       HTTPS on port {{ .Values.service.contentService.securedPort }}
        {{- end }}
      {{- if .Values.ingress.contentService.enabled }}
      - via Ingress:

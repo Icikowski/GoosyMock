@@ -5,14 +5,14 @@ metadata:
   labels:
     {{- include "goosymock.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.goosyMock.adminApi.service.type }}
+  type: {{ .Values.service.adminApi.type }}
   ports:
-    - port: {{ .Values.goosyMock.adminApi.service.port }}
+    - port: {{ .Values.service.adminApi.port }}
       targetPort: admin-http
       protocol: TCP
       name: http
     {{- if .Values.goosyMock.adminApi.ssl.enabled }}
-    - port: {{ .Values.goosyMock.adminApi.service.securedPort }}
+    - port: {{ .Values.service.adminApi.securedPort }}
       targetPort: admin-https
       protocol: TCP
       name: https

@@ -5,14 +5,14 @@ metadata:
   labels:
     {{- include "goosymock.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.goosyMock.contentService.service.type }}
+  type: {{ .Values.service.contentService.type }}
   ports:
-    - port: {{ .Values.goosyMock.contentService.service.port }}
+    - port: {{ .Values.service.contentService.port }}
       targetPort: content-http
       protocol: TCP
       name: http
     {{- if .Values.goosyMock.contentService.ssl.enabled }}
-    - port: {{ .Values.goosyMock.contentService.service.securedPort }}
+    - port: {{ .Values.service.contentService.securedPort }}
       targetPort: content-https
       protocol: TCP
       name: https
