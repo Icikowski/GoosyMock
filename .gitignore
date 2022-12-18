@@ -59,4 +59,4 @@ go.work
 target/**
 docs/site
 docs/.cache
-
+**/__pycache__
