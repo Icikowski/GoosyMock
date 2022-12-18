@@ -17,3 +17,10 @@ tasks:
         --build-arg buildTime={{ .BUILD_TIME }} \
         --label org.opencontainers.image.version={{ .GIT_TAG }} \
         --label org.opencontainers.image.created={{ .BUILD_TIME }}
+  chart:
+    desc: Build a Helm chart
+    dir: chart
+    cmds:
+      - helm lint goosymock
+      - helm package goosymock --app-version "{{ .GIT_TAG }}" --version "{{ .GIT_TAG }}"
+      - mv goosymock-{{ .GIT_TAG }}.tgz ../../target
