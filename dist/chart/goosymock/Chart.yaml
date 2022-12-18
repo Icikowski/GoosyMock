@@ -1,6 +1,6 @@
 apiVersion: v2
 name: goosymock
-description: GPTS - Fully functional API was never an option
+description: GoosyMock - Fully functional API was never an option
 keywords:
   - testing
   - mocking
