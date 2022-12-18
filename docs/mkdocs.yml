@@ -1,0 +1,99 @@
+site_name: GoosyMock
+site_author: Piotr Icikowski
+site_description: Fully functional API was never an option
+site_url: https://icikowski.github.io/GoosyMock
+copyright: "&copy; Copyright by <strong>Piotr Icikowski</strong>"
+
+repo_url: https://github.com/Icikowski/GoosyMock
+repo_name: Icikowski/GoosyMock
+edit_uri: ""
+
+docs_dir: sources
+
+theme:
+  name: material
+  logo: assets/img/logo.png
+  favicon: assets/img/logo.png
+  palette:
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    code: Fira Code
+    text: Roboto
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+
+plugins:
+  - search
+  - social:
+      cards_dir: assets/img/social
+      cards_color:
+        fill: "#547AA5"
+        text: "#FFFFFF"
+  - git-revision-date
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - tables
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences 
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Icikowski
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/piotr-icikowski
+
+extra_css:
+  - assets/css/extra.css
+
+hooks:
+  - hooks/links.py
+
+nav:
+  - Home:
+    - index.md
+  - Installation:
+    - installation/index.md
+  - Usage:
+    - usage/index.md
+  - Examples:
+    - examples/index.md
