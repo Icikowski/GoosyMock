@@ -57,3 +57,6 @@ go.work
 
 .task/**
 target/**
+docs/site
+docs/.cache
+
