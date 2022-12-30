@@ -200,7 +200,7 @@ components:
       name: payloadId
       schema:
         type: string
-        example: 17af9631-acc8-4867-b07e-02c97d14ae82
+        example: HZvAT9NnMir41sm5Ke2d1
       required: true
       description: Single payload ID (version 4 UUID string)
 
@@ -412,11 +412,11 @@ paths:
                 additionalProperties:
                   $ref: "#/components/schemas/Payload"
               example:
-                17af9631-acc8-4867-b07e-02c97d14ae82:
+                HZvAT9NnMir41sm5Ke2d1:
                   filename: document.pdf
                   size: 121457
                   timestamp: 2022-11-02T21:24:59.104242267Z
-                faddedaa-2a6b-4930-93da-760874cc1666:
+                cuv8EUWzSxsR41QQ-mZ0E:
                   filename: image.jpg
                   size: 1964529
                   timestamp: 2022-11-02T21:24:59.103929567Z
@@ -427,11 +427,11 @@ paths:
                 additionalProperties:
                   $ref: "#/components/schemas/Payload"
               example:
-                17af9631-acc8-4867-b07e-02c97d14ae82:
+                HZvAT9NnMir41sm5Ke2d1:
                   filename: document.pdf
                   size: 121457
                   timestamp: 2022-11-02T21:24:59.104242267Z
-                faddedaa-2a6b-4930-93da-760874cc1666:
+                cuv8EUWzSxsR41QQ-mZ0E:
                   filename: image.jpg
                   size: 1964529
                   timestamp: 2022-11-02T21:24:59.103929567Z
@@ -462,16 +462,16 @@ paths:
                 $ref: "#/components/schemas/BatchUploadResponse"
               example:
                 ids:
-                  document.pdf: 17af9631-acc8-4867-b07e-02c97d14ae82
-                  image.jpg: faddedaa-2a6b-4930-93da-760874cc1666
+                  document.pdf: HZvAT9NnMir41sm5Ke2d1
+                  image.jpg: cuv8EUWzSxsR41QQ-mZ0E
                 errors: {}
             text/yaml:
               schema:
                 $ref: "#/components/schemas/BatchUploadResponse"
               example:
                 ids:
-                  document.pdf: 17af9631-acc8-4867-b07e-02c97d14ae82
-                  image.jpg: faddedaa-2a6b-4930-93da-760874cc1666
+                  document.pdf: HZvAT9NnMir41sm5Ke2d1
+                  image.jpg: cuv8EUWzSxsR41QQ-mZ0E
                 errors: {}
         '400':
           description: No files attached
@@ -542,14 +542,14 @@ paths:
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
             text/yaml:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
     post:
       operationId: updateSinglePayload
       summary: Update single stored payload
@@ -580,14 +580,14 @@ paths:
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
             text/yaml:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
         '400':
           description: Unable to update payload
           content:
@@ -623,14 +623,14 @@ paths:
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
             text/yaml:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
         '400':
           description: Unable to delete payload
           content:
@@ -672,14 +672,14 @@ paths:
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
             text/yaml:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
               example:
                 status: 404
                 message: resource does not exist
-                details: 'payload with given ID does not exist: 17af9631-acc8-4867-b07e-02c97d14ae82'
+                details: 'payload with given ID does not exist: HZvAT9NnMir41sm5Ke2d1'
         '400':
           description: Unable to download payload
           content:
