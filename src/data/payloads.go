@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/google/uuid"
+	gonanoid "github.com/matoous/go-nanoid/v2"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )
@@ -167,9 +167,9 @@ func (s *PayloadsStore) Count() int {
 	return len(s.content)
 }
 
-func getRandomUUID() string {
-	rawId, _ := uuid.NewRandom()
-	return rawId.String()
+func getUniqueID() string {
+	id, _ := gonanoid.New()
+	return id
 }
 
 func (s *PayloadsStore) createTempFile(src io.ReadCloser) (string, int64, error) {
@@ -192,7 +192,7 @@ func (s *PayloadsStore) createTempFile(src io.ReadCloser) (string, int64, error)
 
 // InsertFile implements FileStore
 func (s *PayloadsStore) InsertFile(name string, src io.ReadCloser) (string, error) {
-	id := getRandomUUID()
+	id := getUniqueID()
 
 	filename, size, err := s.createTempFile(src)
 	if err != nil {

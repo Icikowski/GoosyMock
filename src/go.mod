@@ -6,7 +6,7 @@ require (
 	github.com/Icikowski/kubeprobes v1.2.0
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/go-chi/chi/v5 v5.0.7
-	github.com/google/uuid v1.3.0
+	github.com/matoous/go-nanoid/v2 v2.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.28.0
 	github.com/stretchr/testify v1.8.1
