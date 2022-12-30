@@ -15,7 +15,6 @@ import (
 
 // Payload represents a single payload item
 type Payload struct {
-	id        string
 	path      string
 	Filename  string    `json:"filename" yaml:"filename"`
 	Size      int64     `json:"size" yaml:"size"`
@@ -200,7 +199,6 @@ func (s *PayloadsStore) InsertFile(name string, src io.ReadCloser) (string, erro
 	}
 
 	if err := s.Insert(id, Payload{
-		id:        id,
 		path:      filename,
 		Filename:  name,
 		Size:      size,
@@ -219,7 +217,6 @@ func (s *PayloadsStore) UpdateFile(id string, name string, src io.ReadCloser) er
 	}
 
 	if err := s.Update(id, Payload{
-		id:        id,
 		path:      filename,
 		Filename:  name,
 		Size:      size,
@@ -238,7 +235,6 @@ func (s *PayloadsStore) UpsertFile(id string, name string, src io.ReadCloser) er
 	}
 
 	if err := s.Upsert(id, Payload{
-		id:        id,
 		path:      filename,
 		Filename:  filename,
 		Size:      size,
