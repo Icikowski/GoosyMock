@@ -81,6 +81,9 @@ extra:
       link: https://github.com/Icikowski
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/piotr-icikowski
+  version:
+    provider: mike
+
 
 extra_css:
   - assets/css/extra.css
