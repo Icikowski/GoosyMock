@@ -19,15 +19,15 @@ code from scratch.
 
 ## Features
 
-- [X] Default response for 
+- [X] Dynamic default response for non-configured paths
 - [X] Declarative configuration
-    - [X] Support `YAML` and `JSON` configuration formats
-    - [X] Support per-method response definitions (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`)
-    - [X] Support default response definition (for not configured methods)
-    - [X] Support sub paths handling
-    - [X] Well-documented administration API
+    - [X] Support for `YAML` and `JSON` configuration formats
+    - [X] Support for method-specific responses per each route (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`)
+    - [X] Support for wildcards (`*`) in routes' paths 
+    - [X] Support for custom payloads (that can be uploaded, reused, updated and deleted)
+    - [X] Well-documented administration API (OpenAPI specification included)
 - [X] Docker support
-    - [X] Based on latest [Google's "distroless"](https://github.com/GoogleContainerTools/distroless) image
+    - [X] Based on latest [Google's `distroless`](https://github.com/GoogleContainerTools/distroless) image
     - [X] Small size (≈ 20MB)
     - [X] Running in rootless mode
 - [X] Kubernetes support
