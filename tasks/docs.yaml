@@ -1,0 +1,23 @@
+version: '3'
+
+tasks:
+  requirements:
+    desc: Download and install required pip packages
+    cmds:
+      - pip install -U -r requirements.txt
+  serve:
+    desc: Serve documentation
+    cmds:
+      - mkdocs serve
+  build:
+    desc: Build documentation
+    cmds:
+      - mkdocs build -d ../target/docs
+  deploy-release:
+    desc: Deploy release documentation to GitHub Pages
+    cmds:
+      - mike deploy --push --update-aliases {{ .GIT_TAG }} latest
+  deploy-dev:
+    desc: Deploy development documentation to GitHub Pages
+    cmds:
+      - mike deploy --push dev

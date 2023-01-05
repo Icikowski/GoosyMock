@@ -18,3 +18,6 @@ includes:
   dist:
     taskfile: ./tasks/dist.yaml
     dir: ./dist
+  docs:
+    taskfile: ./tasks/docs.yaml
+    dir: ./docs
