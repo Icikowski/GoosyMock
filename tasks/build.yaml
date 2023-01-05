@@ -17,13 +17,11 @@ tasks:
       GOOS: "{{ .goos | default OS }}"
       GOARCH: "{{ .goarch | default ARCH }}"
     cmds:
-      - go build -ldflags "{{ .flags_base }} {{ .flags_extra }}" -o ../target/goosymock_${GOOS}_${GOARCH}{{ .extension }} .
+      - go build -ldflags "{{ .flags_base }} {{ .flags_extra }}" -o ../target/binaries/goosymock_${GOOS}_${GOARCH}{{ .extension }} .
     sources:
       - "**/*.go"
       - go.mod
       - go.sum
-    generates:
-      - ../target/goosymock_{{ .goos | default OS }}_{{ .goarch | default ARCH }}{{ .extension }}
   dynamic:
     desc: Build a dynamic binary
     cmds:

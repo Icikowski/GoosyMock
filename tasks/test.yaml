@@ -22,14 +22,11 @@ tasks:
   cover:
     desc: Run tests and build coverage report
     cmds:
-      - mkdir -p ../target
-      - go test ./... -race -p 1 -v -covermode atomic -coverprofile ../target/cover.out
-      - go tool cover -html ../target/cover.out -o ../target/cover.html
+      - mkdir -p ../target/tests
+      - go test ./... -race -p 1 -v -covermode atomic -coverprofile ../target/tests/cover.out
+      - go tool cover -html ../target/tests/cover.out -o ../target/tests/cover.html
     sources:
       - "**/*.go"
       - go.mod
       - go.sum
-    generates:
-      - ../target/cover.out
-      - ../target/cover.html
     

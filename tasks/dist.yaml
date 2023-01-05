@@ -23,4 +23,5 @@ tasks:
     cmds:
       - helm lint goosymock
       - helm package goosymock --app-version "{{ .GIT_TAG }}" --version "{{ .GIT_TAG }}"
-      - mv goosymock-{{ .GIT_TAG }}.tgz ../../target
+      - mkdir -p ../../target/chart
+      - mv goosymock-{{ .GIT_TAG }}.tgz ../../target/chart
