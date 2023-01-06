@@ -202,7 +202,7 @@ components:
         type: string
         example: HZvAT9NnMir41sm5Ke2d1
       required: true
-      description: Single payload ID (version 4 UUID string)
+      description: Single payload ID
 
 tags:
   - name: Status
