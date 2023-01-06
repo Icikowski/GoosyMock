@@ -9,16 +9,16 @@ import (
 type ServiceConfig struct {
 	Port        int    `env:"PORT" json:"port"`
 	SecuredPort int    `env:"SECURED_PORT" json:"securedPort"`
-	SSLEnabled  bool   `env:"SSL_ENABLED" envDefault:"false" json:"sslEnabled"`
+	TLSEnabled  bool   `env:"TLS_ENABLED" envDefault:"false" json:"tlsEnabled"`
 	TLSCertPath string `env:"TLS_CERT_PATH" json:"tlsCertPath"`
 	TLSKeyPath  string `env:"TLS_KEY_PATH" json:"tlsKeyPath"`
 
 	tlsCert tls.Certificate
 }
 
-// LoadCerts attempts to load CA & TLS certificates defined in configuration
+// LoadCerts attempts to load TLS certificates defined in configuration
 func (c *ServiceConfig) LoadCerts() error {
-	if !c.SSLEnabled {
+	if !c.TLSEnabled {
 		return nil
 	}
 
@@ -34,7 +34,7 @@ func (c *ServiceConfig) LoadCerts() error {
 
 // GetTLSConfig returns the *tls.Config based on given configuration
 func (c *ServiceConfig) GetTLSConfig() *tls.Config {
-	if !c.SSLEnabled {
+	if !c.TLSEnabled {
 		return nil
 	}
 

@@ -72,7 +72,7 @@ func (s *ContentService) buildServers() (*http.Server, *http.Server) {
 	s.log.Debug().Dict("ports", zerolog.Dict().
 		Int("plain", s.cfg.Port).
 		Int("secured", s.cfg.SecuredPort),
-	).Bool("sslEnabled", s.cfg.SSLEnabled).Msg("building servers")
+	).Bool("sslEnabled", s.cfg.TLSEnabled).Msg("building servers")
 
 	plainServer := &http.Server{
 		Addr:    fmt.Sprintf(":%d", s.cfg.Port),
@@ -80,7 +80,7 @@ func (s *ContentService) buildServers() (*http.Server, *http.Server) {
 	}
 
 	var securedServer *http.Server
-	if s.cfg.SSLEnabled {
+	if s.cfg.TLSEnabled {
 		securedServer = &http.Server{
 			Addr:      fmt.Sprintf(":%d", s.cfg.SecuredPort),
 			TLSConfig: s.cfg.GetTLSConfig(),

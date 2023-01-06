@@ -126,7 +126,7 @@ func TestLoadCerts(t *testing.T) {
 		genFunc       func(*testing.T) (string, string)
 		errorExpected bool
 	}{
-		"SSL disabled": {
+		"TLS disabled": {
 			sslEnabled:    false,
 			genFunc:       noopCertGen,
 			errorExpected: false,
@@ -147,7 +147,7 @@ func TestLoadCerts(t *testing.T) {
 		name, tc := name, tc
 		t.Run(name, func(t *testing.T) {
 			conf := &config.ServiceConfig{
-				SSLEnabled: tc.sslEnabled,
+				TLSEnabled: tc.sslEnabled,
 			}
 			conf.TLSCertPath, conf.TLSKeyPath = tc.genFunc(t)
 
@@ -173,7 +173,7 @@ func TestGetTLSConfig(t *testing.T) {
 		name, tc := name, tc
 		t.Run(name, func(t *testing.T) {
 			conf := &config.ServiceConfig{
-				SSLEnabled: tc.sslEnabled,
+				TLSEnabled: tc.sslEnabled,
 			}
 			actual := conf.GetTLSConfig()
 
