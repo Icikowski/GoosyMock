@@ -362,6 +362,23 @@ paths:
       responses:
         '202':
           description: Routes configuration accepted
+        '400':
+          description: Unable to apply configuration due to missing payloads
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: missing payloads
+                details: "cannot find payload for default method of '/' route: payload with given ID does not exist: u4-i74LliXKedbn40vWj6"
+            text/yaml:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                status: 400
+                message: missing payloads
+                details: "cannot find payload for default method of '/' route: payload with given ID does not exist: u4-i74LliXKedbn40vWj6"
         '422':
           description: Unable to parse request body
           content:
