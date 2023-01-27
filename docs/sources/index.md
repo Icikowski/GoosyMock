@@ -5,6 +5,9 @@ hide: ["navigation"]
 
 # GoosyMock
 
+![GoosyMock icon](assets/img/logo.png#only-light){ align=right .smallImg }
+![GoosyMock icon](assets/img/logo-inv.png#only-dark){ align=right .smallImg }
+
 **GoosyMock** is a configurable test service for mocking HTTP responses,
 featuring SSL support, dedicated administration API and custom payloads
 (binary files that can be served on particular routes). It's also prepared
@@ -32,6 +35,6 @@ code from scratch.
     - [X] Running in rootless mode
 - [X] Kubernetes support
     - [X] Helm chart available
-    - [X] Image running as non-root
-    - [X] All settings can be configured via chart values
-    - [X] Support Ingress controllers
+    - [X] Rootless container image
+    - [X] All settings configurable via chart values
+    - [X] Support for Ingress controllers

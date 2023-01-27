@@ -1,0 +1,66 @@
+.cards > ul {
+    display: flex !important;
+    align-items: stretch;
+    align-content: stretch;
+    flex-flow: row wrap;
+    gap: 0.5rem;
+    margin-left: 0 !important;
+}
+
+.cards.cols-1 > ul > li {
+    flex-basis: 100%;
+}
+
+.cards.cols-2 > ul > li {
+    flex-basis: calc(50% - 0.25rem);
+}
+
+.cards.cols-3 > ul > li {
+    flex-basis: calc(33.3333333% - 0.3333333rem);
+}
+
+.cards.cols-4 > ul > li {
+    flex-basis: calc(25% - 0.375rem);
+}
+
+@media screen and (max-width: 980px) {
+    .cards.cols-2 > ul > li { flex-basis: 100%; }
+    .cards.cols-3 > ul > li { flex-basis: 100%; }
+    .cards.cols-4 > ul > li { flex-basis: 100%; }
+}
+
+.cards > ul > li {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: .05rem solid var(--md-default-fg-color--lightest);
+    border-radius: .1rem;
+    margin: 0;
+    padding: .8rem;
+    transition: border .25s, box-shadow .25s;
+}
+
+.cards > ul > li:hover {
+    border-color: #0000;
+    box-shadow: var(--md-shadow-z2);
+}
+
+.cards > ul > li > * {
+    margin: 0.5em 0;
+}
+
+.cards > ul > li > :first-child {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.cards > ul > li > :last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.cards > ul > li > :nth-child(3) {
+    flex-grow: 100;
+}

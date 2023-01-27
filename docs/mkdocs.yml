@@ -73,6 +73,10 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 extra:
   generator: false
@@ -84,9 +88,9 @@ extra:
   version:
     provider: mike
 
-
 extra_css:
   - assets/css/extra.css
+  - assets/css/cards.css
 
 hooks:
   - hooks/links.py
@@ -96,7 +100,20 @@ nav:
     - index.md
   - Installation:
     - installation/index.md
+    - Binaries: installation/binaries.md
+    - Docker: installation/docker.md
+    - Kubernetes (via Helm): installation/kubernetes.md
   - Usage:
     - usage/index.md
+    - Configuration: 
+      - usage/config/index.md
+      - Configuration variables: usage/config/vars.md
+      - TLS configuration: usage/config/tls.md 
+    - Admin API:
+      - usage/admin/index.md
+      - Status: usage/admin/status.md
+      - Payloads: usage/admin/payloads.md
+      - Routes: usage/admin/routes.md
+    - Liveness & readiness probes: usage/health.md
   - Examples:
     - examples/index.md
