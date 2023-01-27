@@ -10,5 +10,9 @@
         "https://squidfunk.github.io/mkdocs-material/schema.json": [
             "docs/mkdocs.yml"
         ],
-    }
+    },
+    "yaml.customTags": [
+        "tag:yaml.org,2002:python/name:materialx.emoji.twemoji scalar",
+        "tag:yaml.org,2002:python/name:materialx.emoji.to_svg scalar"
+    ]
 }
