@@ -3,6 +3,7 @@ package model
 import (
 	"net/http"
 
+	"github.com/Icikowski/GoosyMock/constants"
 	"github.com/rs/zerolog"
 )
 
@@ -15,6 +16,34 @@ type Route struct {
 	PUT       *Response `json:"put,omitempty" yaml:"put,omitempty"`
 	PATCH     *Response `json:"patch,omitempty" yaml:"patch,omitempty"`
 	DELETE    *Response `json:"delete,omitempty" yaml:"delete,omitempty"`
+}
+
+// GetPayloadsIDs returns a map of payload IDs assigned to method names;
+// data is returned only if response for given method has payload ID
+// assigned
+func (r Route) GetPayloadsIDs() map[string]string {
+	data := map[string]string{}
+
+	if r.Response != nil && r.Response.PayloadID != nil {
+		data[constants.ResponseDefault] = *r.Response.PayloadID
+	}
+	if r.GET != nil && r.GET.PayloadID != nil {
+		data[http.MethodGet] = *r.GET.PayloadID
+	}
+	if r.POST != nil && r.POST.PayloadID != nil {
+		data[http.MethodPost] = *r.POST.PayloadID
+	}
+	if r.PUT != nil && r.PUT.PayloadID != nil {
+		data[http.MethodPut] = *r.PUT.PayloadID
+	}
+	if r.PATCH != nil && r.PATCH.PayloadID != nil {
+		data[http.MethodPatch] = *r.PATCH.PayloadID
+	}
+	if r.DELETE != nil && r.DELETE.PayloadID != nil {
+		data[http.MethodDelete] = *r.DELETE.PayloadID
+	}
+
+	return data
 }
 
 // GetResponseForMethod returns the response for given HTTP method

@@ -24,6 +24,8 @@ func writeErrorResponse(w http.ResponseWriter, r *http.Request, err error) {
 	switch {
 	case strings.Contains(response.Details, "already exists"):
 		response.Status, response.Message = http.StatusConflict, "resource already exists"
+	case strings.Contains(response.Details, "cannot find payload for"):
+		response.Status, response.Message = http.StatusBadRequest, "missing payloads"
 	case strings.Contains(response.Details, "does not exist"):
 		response.Status, response.Message = http.StatusNotFound, "resource does not exist"
 	case strings.Contains(response.Details, "json"):

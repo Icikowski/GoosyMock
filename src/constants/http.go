@@ -1,6 +1,6 @@
 package constants
 
-// HTTP header names
+// HTTP headers' names
 const (
 	HeaderContentType string = "Content-Type"
 	HeaderXSentBy     string = "X-SentBy"
@@ -13,3 +13,6 @@ const (
 	ContentTypeYAML string = "text/yaml"
 	ContentTypeRaw  string = "application/octet-stream"
 )
+
+// Default response name
+const ResponseDefault string = "default"
