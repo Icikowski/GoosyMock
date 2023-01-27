@@ -3,6 +3,24 @@
     --md-primary-fg-color--light:        #547AA5;
     --md-primary-fg-color--dark:         #22223B;
 
-    --md-accent-fg-color:                #FED766;
+    --md-accent-fg-color:                #CBAC52;
     --md-accent-fg-color--transparent:   rgba(254, 215, 102, 0.1);
 }
+
+p {
+    hyphens: auto;
+    text-align: justify;
+}
+
+@media screen and (max-width: 980px) {
+    .smallImg {
+        max-width: 20% !important;
+    }
+}
+
+@media screen and (min-width: 981px) {
+    .smallImg {
+        max-width: 10% !important;
+    }
+}
+

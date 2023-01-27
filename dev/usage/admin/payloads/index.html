@@ -12,25 +12,27 @@
         <meta name="author" content="Piotr Icikowski">
       
       
-        <link rel="canonical" href="https://icikowski.github.io/GoosyMock/dev/examples/">
+        <link rel="canonical" href="https://icikowski.github.io/GoosyMock/dev/usage/admin/payloads/">
       
       
-        <link rel="prev" href="../usage/health/">
+        <link rel="prev" href="../status/">
       
       
-      <link rel="icon" href="../assets/img/logo.png">
+        <link rel="next" href="../routes/">
+      
+      <link rel="icon" href="../../../assets/img/logo.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
     
     
       
-        <title>Examples - GoosyMock</title>
+        <title>Payloads endpoint - GoosyMock</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.558e4712.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.558e4712.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
       
       
 
@@ -46,11 +48,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/css/extra.css">
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
     
-      <link rel="stylesheet" href="../assets/css/cards.css">
+      <link rel="stylesheet" href="../../../assets/css/cards.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -59,11 +61,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Examples - GoosyMock" >
+        <meta  property="og:title"  content="Payloads endpoint - GoosyMock" >
       
         <meta  property="og:description"  content="Fully functional API was never an option" >
       
-        <meta  property="og:image"  content="https://icikowski.github.io/GoosyMock/dev/assets/img/social/examples/index.png" >
+        <meta  property="og:image"  content="https://icikowski.github.io/GoosyMock/dev/assets/img/social/usage/admin/payloads.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -71,15 +73,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://icikowski.github.io/GoosyMock/dev/examples/" >
+        <meta  property="og:url"  content="https://icikowski.github.io/GoosyMock/dev/usage/admin/payloads/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Examples - GoosyMock" >
+        <meta  name="twitter:title"  content="Payloads endpoint - GoosyMock" >
       
         <meta  name="twitter:description"  content="Fully functional API was never an option" >
       
-        <meta  name="twitter:image"  content="https://icikowski.github.io/GoosyMock/dev/assets/img/social/examples/index.png" >
+        <meta  name="twitter:image"  content="https://icikowski.github.io/GoosyMock/dev/assets/img/social/usage/admin/payloads.png" >
       
     
     
@@ -104,11 +106,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#examples" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -125,9 +122,9 @@
 
 <header class="md-header md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="GoosyMock" class="md-header__button md-logo" aria-label="GoosyMock" data-md-component="logo">
+    <a href="../../.." title="GoosyMock" class="md-header__button md-logo" aria-label="GoosyMock" data-md-component="logo">
       
-  <img src="../assets/img/logo.png" alt="logo">
+  <img src="../../../assets/img/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -143,7 +140,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Examples
+              Payloads endpoint
             
           </span>
         </div>
@@ -241,7 +238,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         Home
       </a>
     </li>
@@ -257,24 +254,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="../installation/" class="md-tabs__link">
+      <a href="../../../installation/" class="md-tabs__link">
         Installation
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../usage/" class="md-tabs__link">
-        Usage
       </a>
     </li>
   
@@ -291,7 +272,23 @@
   
   
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Usage
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../examples/" class="md-tabs__link">
         Examples
       </a>
     </li>
@@ -327,9 +324,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="GoosyMock" class="md-nav__button md-logo" aria-label="GoosyMock" data-md-component="logo">
+    <a href="../../.." title="GoosyMock" class="md-nav__button md-logo" aria-label="GoosyMock" data-md-component="logo">
       
-  <img src="../assets/img/logo.png" alt="logo">
+  <img src="../../../assets/img/logo.png" alt="logo">
 
     </a>
     GoosyMock
@@ -375,7 +372,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="..">Home</a>
+          <a href="../../..">Home</a>
           
         </div>
       
@@ -426,7 +423,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../installation/">Installation</a>
+          <a href="../../../installation/">Installation</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -449,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/binaries/" class="md-nav__link">
+      <a href="../../../installation/binaries/" class="md-nav__link">
         Binaries
       </a>
     </li>
@@ -463,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/docker/" class="md-nav__link">
+      <a href="../../../installation/docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -477,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/kubernetes/" class="md-nav__link">
+      <a href="../../../installation/kubernetes/" class="md-nav__link">
         Kubernetes (via Helm)
       </a>
     </li>
@@ -497,14 +494,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
         
@@ -523,7 +522,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../usage/">Usage</a>
+          <a href="../../">Usage</a>
           
             <label for="__nav_3">
               <span class="md-nav__icon md-icon"></span>
@@ -568,7 +567,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../usage/config/">Configuration</a>
+          <a href="../../config/">Configuration</a>
           
             <label for="__nav_3_2">
               <span class="md-nav__icon md-icon"></span>
@@ -591,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/config/vars/" class="md-nav__link">
+      <a href="../../config/vars/" class="md-nav__link">
         Configuration variables
       </a>
     </li>
@@ -605,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/config/tls/" class="md-nav__link">
+      <a href="../../config/tls/" class="md-nav__link">
         TLS configuration
       </a>
     </li>
@@ -624,14 +623,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" checked>
       
       
         
@@ -650,7 +651,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../usage/admin/">Admin API</a>
+          <a href="../">Admin API</a>
           
             <label for="__nav_3_3">
               <span class="md-nav__icon md-icon"></span>
@@ -673,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/admin/status/" class="md-nav__link">
+      <a href="../status/" class="md-nav__link">
         Status
       </a>
     </li>
@@ -685,11 +686,19 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../usage/admin/payloads/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Payloads
       </a>
+      
     </li>
   
 
@@ -701,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/admin/routes/" class="md-nav__link">
+      <a href="../routes/" class="md-nav__link">
         Routes
       </a>
     </li>
@@ -722,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/health/" class="md-nav__link">
+      <a href="../../health/" class="md-nav__link">
         Liveness & readiness probes
       </a>
     </li>
@@ -742,16 +751,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
         
@@ -763,8 +770,8 @@
       
         
         
-        <div class="md-nav__link md-nav__link--index md-nav__link--active">
-          <a href="./">Examples</a>
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../examples/">Examples</a>
           
         </div>
       
@@ -799,10 +806,7 @@
 
 
 
-<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>To be developed</p>
-</blockquote>
+
 
   <hr>
 <div class="md-source-file">
@@ -876,10 +880,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "toc.follow", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.51d95adb.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.51d95adb.min.js"></script>
       
     
   </body>
