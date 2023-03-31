@@ -47,28 +47,28 @@ spec:
               value: {{ .Values.goosyMock.logLevel | default "info" | quote }}
             - name: GM_PRETTY_LOG
               value: {{ .Values.goosyMock.prettyLog | default "false" | quote }}
-            - name: GM_ADMIN_API_PORT
-              value: {{ .Values.goosyMock.adminApi.port | default "8081" | quote }}
+            - name: GM_ADMIN_API_ADDR
+              value: ":{{ .Values.goosyMock.adminApi.port | default "8081" }}"
             - name: GM_ADMIN_API_SECURED_PORT
-              value: {{ .Values.goosyMock.adminApi.ssl.port | default "8444" | quote }}
+              value: ":{{ .Values.goosyMock.adminApi.ssl.port | default "8444" }}"
             - name: GM_ADMIN_API_SSL_ENABLED
               value: {{ .Values.goosyMock.adminApi.ssl.enabled | default "false" | quote }}
             - name: GM_ADMIN_API_TLS_CERT_PATH
               value: /var/ssl/admin/tls.crt
             - name: GM_ADMIN_API_TLS_KEY_PATH
               value: /var/ssl/admin/tls.key
-            - name: GM_CONTENT_PORT
-              value: {{ .Values.goosyMock.contentService.port | default "8080" | quote }}
-            - name: GM_CONTENT_SECURED_PORT
-              value: {{ .Values.goosyMock.contentService.ssl.port | default "8443" | quote }}
+            - name: GM_CONTENT_ADDR
+              value: ":{{ .Values.goosyMock.contentService.port | default "8080" }}"
+            - name: GM_CONTENT_SECURED_ADDR
+              value: ":{{ .Values.goosyMock.contentService.ssl.port | default "8443" }}"
             - name: GM_CONTENT_SSL_ENABLED
               value: {{ .Values.goosyMock.contentService.ssl.enabled | default "false" | quote }}
             - name: GM_CONTENT_TLS_CERT_PATH
               value: /var/ssl/content/tls.crt
             - name: GM_CONTENT_TLS_KEY_PATH
               value: /var/ssl/content/tls.key
-            - name: GM_HEALTH_PROBES_PORT
-              value: {{ .Values.goosyMock.health.port | default "8888" | quote }}
+            - name: GM_HEALTH_PROBES_ADDR
+              value: ":{{ .Values.goosyMock.health.port | default "8888" }}"
             - name: GM_MAX_PAYLOAD_SIZE
               value: {{ .Values.goosyMock.maxPayloadSize | default "64" | quote }}
           ports:
