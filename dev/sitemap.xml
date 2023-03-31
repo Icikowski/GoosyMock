@@ -2,77 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/examples/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/installation/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/installation/binaries/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/installation/docker/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/installation/kubernetes/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/health/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/admin/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/admin/payloads/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/admin/routes/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/admin/status/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/config/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/config/tls/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://icikowski.github.io/GoosyMock/dev/usage/config/vars/</loc>
-         <lastmod>2023-01-27</lastmod>
+         <lastmod>2023-03-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
