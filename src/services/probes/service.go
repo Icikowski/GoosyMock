@@ -2,7 +2,6 @@ package probes
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/Icikowski/kubeprobes"
@@ -12,7 +11,7 @@ import (
 // ProbesService represents the service for health probes
 type ProbesService struct {
 	log           zerolog.Logger
-	port          int
+	addr          string
 	appProbe      *kubeprobes.StatefulProbe
 	adminApiProbe *kubeprobes.StatefulProbe
 	contentProbe  *kubeprobes.StatefulProbe
@@ -23,12 +22,12 @@ type ProbesService struct {
 // NewProbesService creates new Probe service instance
 func NewProbesService(
 	log zerolog.Logger,
-	port int,
+	addr string,
 	appProbe, adminApiProbe, contentProbe *kubeprobes.StatefulProbe,
 ) *ProbesService {
 	return &ProbesService{
 		log:           log,
-		port:          port,
+		addr:          addr,
 		appProbe:      appProbe,
 		adminApiProbe: adminApiProbe,
 		contentProbe:  contentProbe,
@@ -45,10 +44,10 @@ func NewProbesService(
 }
 
 func (s *ProbesService) prepareServer() *http.Server {
-	s.log.Debug().Int("port", s.port).Msg("building server")
+	s.log.Debug().Str("addr", s.addr).Msg("building server")
 
 	return &http.Server{
-		Addr:    fmt.Sprintf(":%d", s.port),
+		Addr:    s.addr,
 		Handler: s.probes,
 	}
 }

@@ -2,7 +2,6 @@ package admin
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/Icikowski/GoosyMock/config"
@@ -90,20 +89,20 @@ func (s *AdminAPIService) buildHandler() {
 }
 
 func (s *AdminAPIService) buildServers() (*http.Server, *http.Server) {
-	s.log.Debug().Dict("ports", zerolog.Dict().
-		Int("plain", s.cfg.Port).
-		Int("secured", s.cfg.SecuredPort),
+	s.log.Debug().Dict("addrs", zerolog.Dict().
+		Str("plain", s.cfg.Address).
+		Str("secured", s.cfg.SecuredAddress),
 	).Bool("sslEnabled", s.cfg.TLSEnabled).Msg("building servers")
 
 	plainServer := &http.Server{
-		Addr:    fmt.Sprintf(":%d", s.cfg.Port),
+		Addr:    s.cfg.Address,
 		Handler: s.handler,
 	}
 
 	var securedServer *http.Server
 	if s.cfg.TLSEnabled {
 		securedServer = &http.Server{
-			Addr:      fmt.Sprintf(":%d", s.cfg.SecuredPort),
+			Addr:      s.cfg.SecuredAddress,
 			TLSConfig: s.cfg.GetTLSConfig(),
 			Handler:   s.handler,
 		}

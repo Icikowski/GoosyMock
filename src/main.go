@@ -28,12 +28,12 @@ func init() {
 
 	cfg = config.Config{
 		AdminAPIService: config.ServiceConfig{
-			Port:        constants.DefaultCfgAdminAPIPort,
-			SecuredPort: constants.DefaultCfgAdminAPISecuredPort,
+			Address:        constants.DefaultCfgAdminAPIAddr,
+			SecuredAddress: constants.DefaultCfgAdminAPISecuredAddr,
 		},
 		ContentService: config.ServiceConfig{
-			Port:        constants.DefaultCfgContentPort,
-			SecuredPort: constants.DefaultCfgContentSecuredPort,
+			Address:        constants.DefaultCfgContentAddr,
+			SecuredAddress: constants.DefaultCfgContentSecuredAddr,
 		},
 	}
 
@@ -76,7 +76,7 @@ func main() {
 		lf.InstanceFor(constants.ComponentServicesManager),
 		probes.NewProbesService(
 			lf.InstanceFor(constants.ComponentHealthProbesService),
-			cfg.HealthProbesPort,
+			cfg.HealthProbesAddr,
 			app, adminApi, cnt,
 		),
 		content.NewContentService(

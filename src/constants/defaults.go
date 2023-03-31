@@ -4,10 +4,10 @@ import "net/http"
 
 // Configuration defaults
 const (
-	DefaultCfgAdminAPIPort        int = 8081
-	DefaultCfgAdminAPISecuredPort int = 8444
-	DefaultCfgContentPort         int = 8080
-	DefaultCfgContentSecuredPort  int = 8443
+	DefaultCfgAdminAPIAddr        string = ":8081"
+	DefaultCfgAdminAPISecuredAddr string = ":8444"
+	DefaultCfgContentAddr         string = ":8080"
+	DefaultCfgContentSecuredAddr  string = ":8443"
 )
 
 // Response defaults

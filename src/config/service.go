@@ -7,11 +7,11 @@ import (
 // ServiceConfig represents the configuration of application's service
 // and its security
 type ServiceConfig struct {
-	Port        int    `env:"PORT" json:"port"`
-	SecuredPort int    `env:"SECURED_PORT" json:"securedPort"`
-	TLSEnabled  bool   `env:"TLS_ENABLED" envDefault:"false" json:"tlsEnabled"`
-	TLSCertPath string `env:"TLS_CERT_PATH" json:"tlsCertPath"`
-	TLSKeyPath  string `env:"TLS_KEY_PATH" json:"tlsKeyPath"`
+	Address        string `env:"ADDR" json:"addr"`
+	SecuredAddress string `env:"SECURED_ADDR" json:"securedAddr"`
+	TLSEnabled     bool   `env:"TLS_ENABLED" envDefault:"false" json:"tlsEnabled"`
+	TLSCertPath    string `env:"TLS_CERT_PATH" json:"tlsCertPath"`
+	TLSKeyPath     string `env:"TLS_KEY_PATH" json:"tlsKeyPath"`
 
 	tlsCert tls.Certificate
 }
