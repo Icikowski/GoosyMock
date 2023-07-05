@@ -6,19 +6,19 @@ import (
 
 	"github.com/Icikowski/GoosyMock/constants"
 	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/GoosyMock/utils"
+	"github.com/Icikowski/limbo/generics"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGetResponseForMethod(t *testing.T) {
 	getResponse := &model.Response{
-		StatusCode: utils.PointerTo(http.StatusOK),
+		StatusCode: generics.Ptr(http.StatusOK),
 	}
 	postResponse := &model.Response{
-		ContentType: utils.PointerTo(constants.ContentTypeRaw),
+		ContentType: generics.Ptr(constants.ContentTypeRaw),
 	}
 	defaultResponse := &model.Response{
-		PayloadID: utils.PointerTo("some-uuid"),
+		PayloadID: generics.Ptr("some-uuid"),
 	}
 	routeWithoutDefaultResponse := model.Route{
 		GET:  getResponse,
@@ -79,7 +79,7 @@ func TestGetResponseForMethod(t *testing.T) {
 
 func TestRouteMarshalZerologObject(t *testing.T) {
 	someResponse := &model.Response{
-		StatusCode: utils.PointerTo(http.StatusOK),
+		StatusCode: generics.Ptr(http.StatusOK),
 	}
 
 	tests := map[string]struct {

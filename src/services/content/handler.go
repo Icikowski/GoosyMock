@@ -8,7 +8,7 @@ import (
 	"github.com/Icikowski/GoosyMock/constants"
 	"github.com/Icikowski/GoosyMock/meta"
 	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/GoosyMock/utils"
+	"github.com/Icikowski/limbo/generics"
 	"github.com/rs/zerolog"
 	"gopkg.in/yaml.v3"
 )
@@ -41,7 +41,7 @@ func (s *ContentService) getRouteHandler(route model.Route) http.HandlerFunc {
 			return
 		}
 
-		data := []byte(utils.ValueOf(response.Content))
+		data := []byte(generics.Val(response.Content))
 		if response.PayloadID != nil {
 			payload, err := s.payloads.Get(*response.PayloadID)
 			if err != nil {
@@ -60,17 +60,17 @@ func (s *ContentService) getRouteHandler(route model.Route) http.HandlerFunc {
 
 		w.Header().Set(
 			constants.HeaderContentType,
-			utils.ValueOrFallback(
+			generics.Fallback(
 				response.ContentType,
 				constants.DefaultResponseContentType,
 			),
 		)
 
-		for key, value := range utils.ValueOf(response.Headers) {
+		for key, value := range generics.Val(response.Headers) {
 			w.Header().Set(key, value)
 		}
 
-		w.WriteHeader(utils.ValueOrFallback(
+		w.WriteHeader(generics.Fallback(
 			response.StatusCode,
 			constants.DefaultResponseStatusCode,
 		))

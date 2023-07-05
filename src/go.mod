@@ -4,12 +4,13 @@ go 1.20
 
 require (
 	github.com/Icikowski/kubeprobes v1.2.0
+	github.com/Icikowski/limbo v0.2.0
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/matoous/go-nanoid/v2 v2.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.29.0
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.4
 	gopkg.in/yaml.v3 v3.0.1
 )
 

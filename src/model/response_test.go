@@ -6,7 +6,7 @@ import (
 
 	"github.com/Icikowski/GoosyMock/constants"
 	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/GoosyMock/utils"
+	"github.com/Icikowski/limbo/generics"
 	"github.com/stretchr/testify/require"
 )
 
@@ -17,7 +17,7 @@ func TestResponseMarshalZerologObject(t *testing.T) {
 	}{
 		"status code": {
 			response: model.Response{
-				StatusCode: utils.PointerTo(http.StatusOK),
+				StatusCode: generics.Ptr(http.StatusOK),
 			},
 			expectedKeys: []string{"statusCode"},
 		},
@@ -32,19 +32,19 @@ func TestResponseMarshalZerologObject(t *testing.T) {
 		},
 		"content type": {
 			response: model.Response{
-				ContentType: utils.PointerTo(constants.ContentTypeJSON),
+				ContentType: generics.Ptr(constants.ContentTypeJSON),
 			},
 			expectedKeys: []string{"contentType"},
 		},
 		"content": {
 			response: model.Response{
-				Content: utils.PointerTo("Hello world!"),
+				Content: generics.Ptr("Hello world!"),
 			},
 			expectedKeys: []string{"contentLength"},
 		},
 		"payload ID": {
 			response: model.Response{
-				PayloadID: utils.PointerTo("1234567890"),
+				PayloadID: generics.Ptr("1234567890"),
 			},
 			expectedKeys: []string{"payloadId"},
 		},
