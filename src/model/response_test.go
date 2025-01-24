@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/Icikowski/GoosyMock/constants"
-	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/limbo/generics"
+	"git.sr.ht/~icikowski/goosymock/constants"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/stretchr/testify/require"
+	"pkg.icikowski.pl/generics"
 )
 
 func TestResponseMarshalZerologObject(t *testing.T) {

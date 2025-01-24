@@ -3,7 +3,7 @@ package admin
 import (
 	"net/http"
 
-	"github.com/Icikowski/GoosyMock/constants"
+	"git.sr.ht/~icikowski/goosymock/constants"
 )
 
 func writeResponse(w http.ResponseWriter, r *http.Request, code int, data any) error {

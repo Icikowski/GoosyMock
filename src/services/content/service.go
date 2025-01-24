@@ -4,21 +4,21 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/Icikowski/GoosyMock/config"
-	"github.com/Icikowski/GoosyMock/constants"
-	"github.com/Icikowski/GoosyMock/data"
-	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/kubeprobes"
+	"git.sr.ht/~icikowski/goosymock/config"
+	"git.sr.ht/~icikowski/goosymock/constants"
+	"git.sr.ht/~icikowski/goosymock/data"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/rs/zerolog"
+	"pkg.icikowski.pl/kubeprobes"
 )
 
 // ContentService represents the service for content serving
 type ContentService struct {
 	log   zerolog.Logger
 	cfg   config.ServiceConfig
-	probe *kubeprobes.StatefulProbe
+	probe kubeprobes.ManualProbe
 
 	routes   data.SubscribableStore[model.Route]
 	payloads data.Store[data.Payload]
@@ -30,7 +30,7 @@ type ContentService struct {
 func NewContentService(
 	log zerolog.Logger,
 	cfg config.ServiceConfig,
-	probe *kubeprobes.StatefulProbe,
+	probe kubeprobes.ManualProbe,
 ) *ContentService {
 	service := &ContentService{
 		log:   log,
@@ -121,7 +121,7 @@ func (s *ContentService) Run(
 					crashChan <- secured.ListenAndServeTLS("", "")
 				}()
 			}
-			s.probe.MarkAsUp()
+			s.probe.Pass()
 
 			select {
 			case <-routesChanged:
@@ -139,7 +139,7 @@ func (s *ContentService) Run(
 				_ = secured.Close()
 			}
 
-			s.probe.MarkAsDown()
+			s.probe.Fail()
 		}
 		s.routes.Unsubscribe(constants.ComponentContentService)
 	}()

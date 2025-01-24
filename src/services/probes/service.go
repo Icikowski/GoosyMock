@@ -4,17 +4,17 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/Icikowski/kubeprobes"
 	"github.com/rs/zerolog"
+	"pkg.icikowski.pl/kubeprobes"
 )
 
 // ProbesService represents the service for health probes
 type ProbesService struct {
 	log           zerolog.Logger
 	addr          string
-	appProbe      *kubeprobes.StatefulProbe
-	adminApiProbe *kubeprobes.StatefulProbe
-	contentProbe  *kubeprobes.StatefulProbe
+	appProbe      kubeprobes.ManualProbe
+	adminApiProbe kubeprobes.ManualProbe
+	contentProbe  kubeprobes.ManualProbe
 
 	probes http.Handler
 }
@@ -23,23 +23,19 @@ type ProbesService struct {
 func NewProbesService(
 	log zerolog.Logger,
 	addr string,
-	appProbe, adminApiProbe, contentProbe *kubeprobes.StatefulProbe,
+	appProbe, adminApiProbe, contentProbe kubeprobes.ManualProbe,
 ) *ProbesService {
+	probes, _ := kubeprobes.New(
+		kubeprobes.WithLivenessProbes(appProbe),
+		kubeprobes.WithReadinessProbes(adminApiProbe, contentProbe),
+	)
 	return &ProbesService{
 		log:           log,
 		addr:          addr,
 		appProbe:      appProbe,
 		adminApiProbe: adminApiProbe,
 		contentProbe:  contentProbe,
-		probes: kubeprobes.New(
-			kubeprobes.WithLivenessProbes(
-				appProbe.GetProbeFunction(),
-			),
-			kubeprobes.WithReadinessProbes(
-				adminApiProbe.GetProbeFunction(),
-				contentProbe.GetProbeFunction(),
-			),
-		),
+		probes:        probes,
 	}
 }
 
@@ -56,7 +52,7 @@ func (s *ProbesService) prepareServer() *http.Server {
 func (s *ProbesService) Run(ctx context.Context) {
 	s.log.Info().Msg("starting Probes service")
 	go func() {
-		s.appProbe.MarkAsUp()
+		s.appProbe.Pass()
 		running := true
 		for running {
 			server := s.prepareServer()
@@ -77,6 +73,6 @@ func (s *ProbesService) Run(ctx context.Context) {
 
 			_ = server.Close()
 		}
-		s.appProbe.MarkAsDown()
+		s.appProbe.Fail()
 	}()
 }

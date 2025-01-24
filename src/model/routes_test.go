@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"github.com/Icikowski/GoosyMock/model"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/stretchr/testify/require"
 )
 

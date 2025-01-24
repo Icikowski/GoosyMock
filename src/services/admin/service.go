@@ -4,20 +4,20 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/Icikowski/GoosyMock/config"
-	"github.com/Icikowski/GoosyMock/data"
-	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/kubeprobes"
+	"git.sr.ht/~icikowski/goosymock/config"
+	"git.sr.ht/~icikowski/goosymock/data"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/rs/zerolog"
+	"pkg.icikowski.pl/kubeprobes"
 )
 
 // AdminAPIService represents the service for application management
 type AdminAPIService struct {
 	log   zerolog.Logger
 	cfg   config.ServiceConfig
-	probe *kubeprobes.StatefulProbe
+	probe kubeprobes.ManualProbe
 
 	maxPayloadSize int64
 	routes         data.Store[model.Route]
@@ -30,7 +30,7 @@ type AdminAPIService struct {
 func NewAdminAPIService(
 	log zerolog.Logger,
 	cfg config.ServiceConfig,
-	probe *kubeprobes.StatefulProbe,
+	probe kubeprobes.ManualProbe,
 	maxPayloadSize int64,
 ) *AdminAPIService {
 	srv := &AdminAPIService{
@@ -137,7 +137,7 @@ func (s *AdminAPIService) Run(
 					crashChan <- secured.ListenAndServeTLS("", "")
 				}()
 			}
-			s.probe.MarkAsUp()
+			s.probe.Pass()
 
 			select {
 			case err := <-crashChan:
@@ -152,7 +152,7 @@ func (s *AdminAPIService) Run(
 				_ = secured.Close()
 			}
 
-			s.probe.MarkAsDown()
+			s.probe.Fail()
 		}
 	}()
 }

@@ -6,16 +6,16 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Icikowski/GoosyMock/config"
-	"github.com/Icikowski/GoosyMock/constants"
-	"github.com/Icikowski/GoosyMock/logs"
-	"github.com/Icikowski/GoosyMock/meta"
-	"github.com/Icikowski/GoosyMock/services"
-	"github.com/Icikowski/GoosyMock/services/admin"
-	"github.com/Icikowski/GoosyMock/services/content"
-	"github.com/Icikowski/GoosyMock/services/probes"
-	"github.com/Icikowski/kubeprobes"
+	"git.sr.ht/~icikowski/goosymock/config"
+	"git.sr.ht/~icikowski/goosymock/constants"
+	"git.sr.ht/~icikowski/goosymock/logs"
+	"git.sr.ht/~icikowski/goosymock/meta"
+	"git.sr.ht/~icikowski/goosymock/services"
+	"git.sr.ht/~icikowski/goosymock/services/admin"
+	"git.sr.ht/~icikowski/goosymock/services/content"
+	"git.sr.ht/~icikowski/goosymock/services/probes"
 	"github.com/caarlos0/env/v6"
+	"pkg.icikowski.pl/kubeprobes"
 )
 
 var (
@@ -69,7 +69,9 @@ func main() {
 	ctx, _ := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 
 	log.Debug().Msg("creating probes")
-	app, adminApi, cnt := kubeprobes.NewStatefulProbe(), kubeprobes.NewStatefulProbe(), kubeprobes.NewStatefulProbe()
+	app, _ := kubeprobes.NewManualProbe("app")
+	adminApi, _ := kubeprobes.NewManualProbe("adminAPI")
+	cnt, _ := kubeprobes.NewManualProbe("contentAPI")
 
 	log.Debug().Msg("building service manager")
 	mgr := services.NewServicesManager(
@@ -92,9 +94,9 @@ func main() {
 		),
 		lf.InstanceFor(constants.ComponentRoutesStore),
 		lf.InstanceFor(constants.ComponentPayloadsStore),
-		app.GetProbeFunction(),
-		cnt.GetProbeFunction(),
-		adminApi.GetProbeFunction(),
+		app,
+		cnt,
+		adminApi,
 	)
 
 	log.Debug().Msg("starting service manager")

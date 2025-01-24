@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Icikowski/GoosyMock/constants"
+	"git.sr.ht/~icikowski/goosymock/constants"
 )
 
 type errorResponse struct {

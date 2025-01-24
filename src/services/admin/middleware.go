@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Icikowski/GoosyMock/constants"
-	"github.com/Icikowski/GoosyMock/meta"
+	"git.sr.ht/~icikowski/goosymock/constants"
+	"git.sr.ht/~icikowski/goosymock/meta"
 	"github.com/go-chi/chi/v5"
 	"github.com/rs/zerolog"
 	"gopkg.in/yaml.v3"

@@ -3,7 +3,7 @@ package model
 import (
 	"net/http"
 
-	"github.com/Icikowski/GoosyMock/constants"
+	"git.sr.ht/~icikowski/goosymock/constants"
 	"github.com/rs/zerolog"
 )
 

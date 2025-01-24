@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Icikowski/GoosyMock/model"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )

@@ -1,7 +1,3 @@
-github.com/Icikowski/kubeprobes v1.2.0 h1:EFtWiZq/8AoEG8gD9Wt6Sx81SyPWNo0WzunEWlosq1Q=
-github.com/Icikowski/kubeprobes v1.2.0/go.mod h1:gw4mc5imc3OgFw6TtBTCWXWbJJd5vRlyOHDQbiKlKN0=
-github.com/Icikowski/limbo v0.2.0 h1:Ar5Iiv16NWK/BRxeVlmWqSCZ9uBvXlP4dx8WUW5O+SU=
-github.com/Icikowski/limbo v0.2.0/go.mod h1:A14SRCWtnywCR2VEeE5SjRI35BIh1oCi5/AqDHnhY5Q=
 github.com/caarlos0/env/v6 v6.10.1 h1:t1mPSxNpei6M5yAeu1qtRdPAK29Nbcf/n3G7x+b3/II=
 github.com/caarlos0/env/v6 v6.10.1/go.mod h1:hvp/ryKXKipEkcuYjs9mI4bBCg+UI0Yhgm5Zu0ddvwc=
 github.com/coreos/go-systemd/v22 v22.3.3-0.20220203105225-a9a7ef127534/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
@@ -30,8 +26,8 @@ github.com/rs/zerolog v1.29.0 h1:Zes4hju04hjbvkVkOhdl2HpZa+0PmVwigmo8XoORE5w=
 github.com/rs/zerolog v1.29.0/go.mod h1:NILgTygv/Uej1ra5XxGf82ZFSLk58MFGAUS2o6usyD0=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
-github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/stretchr/testify v1.10.0 h1:Xv5erBjTwe/5IxqUQTdXv5kgmIvbHo3QQyRwhJsOfJA=
+github.com/stretchr/testify v1.10.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20210927094055-39ccf1dd6fa6/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
@@ -42,3 +38,7 @@ gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+pkg.icikowski.pl/generics v1.2.1 h1:wt9kPnfFH4Djxxd0z24yHnUmNOd50rS1oT97GcJSkt0=
+pkg.icikowski.pl/generics v1.2.1/go.mod h1:d3FxtaiZuUMwbbC8XNNqW9Lt49rbFJlJ75TTG1kQJuM=
+pkg.icikowski.pl/kubeprobes v1.3.2 h1:jV+f7diPJRhieN1UI3wVduUD6UhAPMqfxaKIvPrhwGQ=
+pkg.icikowski.pl/kubeprobes v1.3.2/go.mod h1:tYTDa+8SmdPKgU1GNrrM7ov9rEfBUBA1DWijyETggK0=

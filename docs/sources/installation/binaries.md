@@ -16,7 +16,7 @@ architectures:
 | MacOS | `darwin` | `arm64` |
 
 Properly named binaries are attached as release assets and can be downloaded
-from [*Releases* page on GitHub](https://github.com/Icikowski/GoosyMock/releases/latest).
+from [latest tag's attachments](https://git.sr.ht/~icikowski/goosymock/refs).
 
 ## Building binaries manually
 
@@ -30,7 +30,7 @@ from [*Releases* page on GitHub](https://github.com/Icikowski/GoosyMock/releases
 === "Clone via HTTPS"
 
     ```bash
-    git clone https://github.com/Icikowski/GoosyMock.git
+    git clone https://git.sr.ht/~icikowski/goosymock.git
     ```
 
 === "Clone via SSH"

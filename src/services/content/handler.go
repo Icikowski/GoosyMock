@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Icikowski/GoosyMock/constants"
-	"github.com/Icikowski/GoosyMock/meta"
-	"github.com/Icikowski/GoosyMock/model"
-	"github.com/Icikowski/limbo/generics"
+	"git.sr.ht/~icikowski/goosymock/constants"
+	"git.sr.ht/~icikowski/goosymock/meta"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/rs/zerolog"
 	"gopkg.in/yaml.v3"
+	"pkg.icikowski.pl/generics"
 )
 
 type errorResponse struct {

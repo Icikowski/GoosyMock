@@ -1,11 +1,11 @@
 version: '3'
 
 vars:
-  flag_buildTime: -X 'github.com/Icikowski/GoosyMock/meta.BuildTime={{ .BUILD_TIME }}'
-  flag_version: -X 'github.com/Icikowski/GoosyMock/meta.Version={{ .GIT_TAG }}'
-  flag_commit: -X 'github.com/Icikowski/GoosyMock/meta.GitCommit={{ .GIT_COMMIT }}'
-  flag_buildType_dynamic: -X 'github.com/Icikowski/GoosyMock/meta.BinaryType=dynamic'
-  flag_buildType_static: -X 'github.com/Icikowski/GoosyMock/meta.BinaryType=static' -w -extldflags '-static'
+  flag_buildTime: -X 'git.sr.ht/~icikowski/goosymock/meta.BuildTime={{ .BUILD_TIME }}'
+  flag_version: -X 'git.sr.ht/~icikowski/goosymock/meta.Version={{ .GIT_TAG }}'
+  flag_commit: -X 'git.sr.ht/~icikowski/goosymock/meta.GitCommit={{ .GIT_COMMIT }}'
+  flag_buildType_dynamic: -X 'git.sr.ht/~icikowski/goosymock/meta.BinaryType=dynamic'
+  flag_buildType_static: -X 'git.sr.ht/~icikowski/goosymock/meta.BinaryType=static' -w -extldflags '-static'
   flags_base: "{{ .flag_version }} {{ .flag_commit }} {{ .flag_buildTime }}"
 
 tasks:

@@ -3,15 +3,14 @@ package services
 import (
 	"context"
 
-	"github.com/Icikowski/GoosyMock/constants"
-	"github.com/Icikowski/GoosyMock/data"
-	"github.com/Icikowski/GoosyMock/services/admin"
-	"github.com/Icikowski/GoosyMock/services/content"
-	"github.com/Icikowski/GoosyMock/services/probes"
-	"github.com/Icikowski/GoosyMock/utils"
-	"github.com/Icikowski/kubeprobes"
+	"git.sr.ht/~icikowski/goosymock/constants"
+	"git.sr.ht/~icikowski/goosymock/data"
+	"git.sr.ht/~icikowski/goosymock/services/admin"
+	"git.sr.ht/~icikowski/goosymock/services/content"
+	"git.sr.ht/~icikowski/goosymock/services/probes"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"pkg.icikowski.pl/kubeprobes"
 )
 
 // ServiceManager represents the service manager
@@ -24,9 +23,9 @@ type ServicesManager struct {
 	routesStoreLog   zerolog.Logger
 	payloadsStoreLog zerolog.Logger
 
-	appProbe      kubeprobes.ProbeFunction
-	contentProbe  kubeprobes.ProbeFunction
-	adminApiProbe kubeprobes.ProbeFunction
+	appProbe      kubeprobes.Probe
+	contentProbe  kubeprobes.Probe
+	adminApiProbe kubeprobes.Probe
 }
 
 // NewServicesManager creates ner ServiceManager instance
@@ -37,7 +36,7 @@ func NewServicesManager(
 	adminApi *admin.AdminAPIService,
 	routesStoreLog zerolog.Logger,
 	payloadsStoreLog zerolog.Logger,
-	appProbe, contentProbe, adminApiProbe kubeprobes.ProbeFunction,
+	appProbe, contentProbe, adminApiProbe kubeprobes.Probe,
 ) *ServicesManager {
 	return &ServicesManager{
 		log:           log,
@@ -89,15 +88,6 @@ func (sm *ServicesManager) Run(ctx context.Context) {
 
 	sm.log.Info().Msg("stopping underlying services")
 	cancel()
-
-	sm.log.Debug().Str(fieldService, constants.ComponentAdminAPIService).Msg(msgWaitingForStop)
-	utils.WaitForProbeDown(sm.adminApiProbe)
-
-	sm.log.Debug().Str(fieldService, constants.ComponentContentService).Msg(msgWaitingForStop)
-	utils.WaitForProbeDown(sm.contentProbe)
-
-	sm.log.Debug().Str(fieldService, constants.ComponentHealthProbesService).Msg(msgWaitingForStop)
-	utils.WaitForProbeDown(sm.appProbe)
 
 	sm.log.Debug().Str(fieldService, constants.ComponentPayloadsStore).Msg("closing payloads store")
 	if err := payloadsStore.Close(); err != nil {

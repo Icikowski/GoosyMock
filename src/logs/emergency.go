@@ -3,8 +3,8 @@ package logs
 import (
 	"io"
 
-	"github.com/Icikowski/GoosyMock/config"
-	"github.com/Icikowski/GoosyMock/constants"
+	"git.sr.ht/~icikowski/goosymock/config"
+	"git.sr.ht/~icikowski/goosymock/constants"
 	"github.com/rs/zerolog"
 )
 

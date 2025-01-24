@@ -11,9 +11,9 @@ type: application
 version: 0.1.0
 appVersion: "0.1.0"
 home: https://icikowski.github.io/GoosyMock
-icon: https://github.com/Icikowski/GoosyMock/raw/master/images/icon-dark.png
+icon: https://git.sr.ht/~icikowski/goosymock/blob/main/images/icon-dark.png
 sources:
-  - http://github.com/Icikowski/GoosyMock
+  - http://git.sr.ht/~icikowski/goosymock
 maintainers:
   - name: Piotr Icikowski
     url: https://icikowski.pl

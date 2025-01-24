@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/Icikowski/GoosyMock/model"
+	"git.sr.ht/~icikowski/goosymock/model"
 	"github.com/rs/zerolog"
 )
 

@@ -7,8 +7,6 @@ featuring SSL support, dedicated administration API and custom payloads
 (binary files that can be served on particular routes). It's also prepared
 for Kubernetes deployments (Helm chart), making it easy to adapt and use.
 
-[**Explore documentation**](https://icikowski.github.io/GoosyMock) | [GitHub repository](https://github.com/Icikowski/GoosyMock)
-
 ## Easy installation
 
 ```bash

@@ -3,7 +3,7 @@ package meta_test
 import (
 	"testing"
 
-	"github.com/Icikowski/GoosyMock/meta"
+	"git.sr.ht/~icikowski/goosymock/meta"
 	"github.com/stretchr/testify/require"
 )
 
